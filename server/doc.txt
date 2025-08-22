@@ -1,0 +1,54 @@
+CREATE TABLE users (
+id INTEGER PRIMARY KEY,
+username TEXT,
+email UNIQUE
+);
+
+CREATE TABLE goals (
+id INTEGER PRIMARY KEY,
+account_id INTIGER,
+name TEXT,
+date_created DATE,
+latest_commit DATE,
+
+FOREIGN KEY (account_id) REFERENCES users(id)
+);
+
+CREATE TABLE commits (
+id INTEGER PRIMARY KEY,
+goal_id INTEGER,
+name TEXT,
+date_created DATE,
+commit_message TEXT,
+
+FOREIGN KEY (goal_id) REFERENCES goals(id)
+);
+
+
+
+
+
+-- Users
+INSERT INTO users (id, name, email) VALUES
+(1, 'Alice', 'alice@example.com'),
+(2, 'Bob', 'bob@example.com'),
+(3, 'Charlie', 'charlie@example.com');
+
+-- Goals
+INSERT INTO goals (id, account_id, name, date_created, latest_commit) VALUES
+(1, 1, 'Learn Rust',       '2025-01-10', '2025-02-02'),
+(2, 1, 'Run Marathon',     '2025-02-15', '2025-03-01'),
+(3, 2, 'Build Website',    '2025-01-20', '2025-02-18'),
+(4, 3, 'Read 12 Books',    '2025-03-01', '2025-03-15');
+
+-- Commits
+INSERT INTO commits (id, goal_id, name, date_created, commit_message) VALUES
+(1, 1, 'Chapter 1 done',     '2025-01-12', 'Finished Rustlings basics'),
+(2, 1, 'First project',      '2025-01-25', 'Wrote a CLI in Rust'),
+(3, 2, '5km practice',       '2025-02-16', 'Ran 5km in the park'),
+(4, 2, '10km practice',      '2025-02-25', 'Improved endurance'),
+(5, 3, 'Wireframes ready',   '2025-01-22', 'Created mockups for site'),
+(6, 3, 'Backend started',    '2025-02-10', 'Set up Express.js API'),
+(7, 4, 'Book 1 finished',    '2025-03-05', 'Read "Deep Work"'),
+(8, 4, 'Book 2 finished',    '2025-03-12', 'Read "Atomic Habits"');
+
