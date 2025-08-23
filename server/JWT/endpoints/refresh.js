@@ -4,8 +4,7 @@ import { signAccess, signRefresh, verifyRefresh } from "../jwt.js";
 
 export default function MakeRefresh(db){
   return async function refresh(req, res){
-
-    const { username, email } = req.body;
+    
     const token = req.cookie.refreshToken;
     const valid = verifyRefresh(token);
     
