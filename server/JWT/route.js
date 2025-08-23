@@ -7,7 +7,7 @@ export default function MakeJWTRoute(db){
   const router = Router();
   router.post("/login", MakeLogin(db));
   router.post("/register", MakeRegister(db));
-  router.get("/refresh", MakeRefresh(db));
+  router.get("/refresh", MakeRefresh());
   return router;
 }
 

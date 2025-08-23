@@ -12,18 +12,11 @@ app.use(cors({
   credentials: true //able to recieve cookies
 }));
 
-
 app.use(express.json());
-app.post("/", (req, res) => {
-  console.log(req.body["username"]);  
-  res.status(200).send("good")}  
-)
-
 app.use("/jwt", MakeJWTRoute(db));
 
-
 app.listen(PORT, () => {
-  console.log(`Server is now open on http://localhost:${PORT}`)
+  console.log(`Server is now open on http://localhost:${PORT}`);
 }).on("error", (err)=> {
   console.log("server failed to start:\n", err)
 })
