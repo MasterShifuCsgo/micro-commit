@@ -1,35 +1,49 @@
 import { createErrorMessage } from "../../global/errorMessage.js";
-import verifyUser from "../functions/verifyUser.js"
-import { signAccess, signRefresh, verifyRefresh } from "../jwt.js";
+import { signAccess, signRefresh ,verifyRefresh } from "../jwt.js";
+import isInputDangerous from "../functions/isInputDangerous.js"
+import { DoesUserExist } from "../../database/functions/DoesUserExist.js";
+import { createFrefreshTokenCookie } from "../functions/createRefreshTokenCookie.js"
 
-export default function MakeRefresh(db){
-  return async function refresh(req, res){
+export default function MakeRefresh(){
+  return async function refresh(req, res){          
     
-    const token = req.cookie.refreshToken;
-    const valid = verifyRefresh(token);
-    
+    const token = req.cookies.refreshToken;
+    const valid = verifyRefresh(token);        
+
     if(valid == null){
-      return res.status(401).send(createErrorMessage("Refresh token is not valid"))}
-      
+      return res.status(401).send(createErrorMessage("Refresh token is not valid"))
+    }
+
+    const {id, username, email} = valid;
+
     try{
-      verifyUser(username, email);
-    }catch(err){
-      return res.status(401).send(err.message);
+      
+      if(isInputDangerous({ username, email })){
+        throw new createErrorMessage("Invalid Fields");
+      }
+    
+      if(!DoesUserExist(email)){
+        throw new createErrorMessage("User doesn't exist");
+      }
+
+    }catch(err){      
+      return res.status(401).send(err);
     }
     
     const accessToken = signAccess({
-      id: user.user.id,
-      username: user.user.username,
-      email: user.user.email
-    })    
-
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: false, //TODO: CHANGE THIS IN PRODUCTION. your site should be only on https not http
-      sameSite: "none",
-      path: "/refresh"
+      id: id,
+      username: username,
+      email: email
     })
 
+    const refreshToken = signRefresh({
+      id:id,
+      username: username,
+      email:email
+    })
+    
+    createFrefreshTokenCookie(res, refreshToken);
+    
     res.status(200).send({ accessToken: accessToken });
   }
 }
