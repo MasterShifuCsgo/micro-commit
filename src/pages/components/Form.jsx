@@ -10,12 +10,11 @@ export default function Form({ data }){
     setFields(v => ({...v, [placeholder]: value}))
   }
 
-
   return (
     <div className={style.container}>
       <div className={style.inner_container}>
         <h1>{data.title}</h1>
-        <form onSubmit={(e) => {e.preventDefault(); data.handleSubmit(e)}} className={style.form}>
+        <form onSubmit={(e) => {e.preventDefault(); data.handleSubmit(fields)}} className={style.form}>
           <div className={style.inputs}>
             <input className={style.input}
             type="text" placeholder="username" value={fields.username} onChange={(e) => handleChange(e)}/>
@@ -26,7 +25,7 @@ export default function Form({ data }){
           <button className={style.submit_btn}>{data.title}</button>
         </form>
       </div>
-    </div>   
+    </div>
   );
 
 }
