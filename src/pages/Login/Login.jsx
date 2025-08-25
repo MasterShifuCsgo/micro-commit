@@ -4,7 +4,6 @@ import { useSession } from "../../contexts/Session";
 import Form from "../components/Form";
 
 export default function Login(){
-
   const ctx = useSession();
   
   useEffect(() => {
@@ -16,8 +15,7 @@ export default function Login(){
 
     const data = {
       title: "Login",
-      href: "register",
-       //TODO: add setError method
+      href: "register",       
       handleSubmit: async (form) => {        
         
         const res = await fetch(`http://localhost:3000/jwt/login`, {
@@ -30,14 +28,13 @@ export default function Login(){
 
         let data = null;
         try{data = await res.json()}
-        catch(e){console.log("error occured creating json:", e)}
+        catch(e){throw new Error("error: json not created. check server response")}
 
-        if(!res.ok){console.log("error occured with response: ", data.error)
-          return;
-        };
+        if(!res.ok){throw new Error(data.error)};
 
         ctx.setAccessToken(data.accessToken);
         ctx.navigateTo('/');
+        return "login successful";
       }
     }
 

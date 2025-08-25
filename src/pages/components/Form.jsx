@@ -3,16 +3,16 @@ import { useState } from "react";
 
 export default function Form({ data }){
 
-  const [fields, setFields] = useState({username: "", email: ""});
+  const [fields, setFields] = useState({username: "", email: ""});  
 
   function handleChange(e){
-    const {placeholder, value} = e.target;
+    const { placeholder, value } = e.target;
     setFields(v => ({...v, [placeholder]: value}))
   }
 
   return (
     <div className={style.container}>
-      <div className={style.inner_container}>
+      <div className={style.inner_container}>        
         <h1>{data.title}</h1>
         <form onSubmit={(e) => {e.preventDefault(); data.handleSubmit(fields)}} className={style.form}>
           <div className={style.inputs}>

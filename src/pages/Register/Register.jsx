@@ -16,8 +16,7 @@ export default function Register(){
 
     const data = {
       title: "Register",
-      href: "login",
-      //TODO: add setError method
+      href: "login",      
       handleSubmit: async (form) => {                 
 
         const res = await fetch("http://localhost:3000/jwt/register", {
@@ -30,14 +29,13 @@ export default function Register(){
 
         let data = null;
         try{data = await res.json()}
-        catch(e){console.log("error occured creating json:", e)}
+        catch(e){throw new Error("error: json not created. check server response")}
 
-        if(!res.ok){console.log("error occured with response: ", data.error)
-          return;
-        };
+        if(!res.ok){throw new Error(data.error)};
         
-        ctx.setAccessToken(data.accessToken);        
-        ctx.navigateTo('/login');
+        ctx.setAccessToken(data.accessToken);
+        ctx.navigateTo('/login')
+        return "account created";
       }
     }
 
