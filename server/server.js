@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import MakeJWTRoute from "./JWT/route.js";
+import { MakeGoalsRoute } from "./micro-commit/route.js";
 
 
 const PORT = process.env.PORT || 3001;
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use("/jwt", MakeJWTRoute(db));
+app.use("/goal", MakeGoalsRoute(db));
 
 app.listen(PORT, () => {
   console.log(`Server is now open on http://localhost:${PORT}`);
