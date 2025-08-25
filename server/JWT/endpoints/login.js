@@ -22,6 +22,9 @@ export default function MakeLogin(db){
       return res.status(401).send(err);
     }
 
+
+    //TODO: send authEmail
+
     //search for user on database for id.
     const info = db.prepare("SELECT * from users WHERE email = ?").get(email);    
 

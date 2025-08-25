@@ -24,6 +24,9 @@ export default function MakeRegister(db){
       return res.status(401).send(err);
     }
 
+
+    //TODO: send authEmail
+
     //create user
     const info = db.prepare("INSERT INTO users (username, email) VALUES (?, ?)").run(username, email);
     const id = info.lastInsertRowid;
