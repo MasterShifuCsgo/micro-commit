@@ -6,16 +6,16 @@ export async function verifyUser(ctx){
 
   //check if access token exists
   if(ctx.accessToken != ""){
-    return true;
+    return true; //user already has an access token
   }
 
   //send refreshToken
   try{
     await ctx.sendRefreshToken();
-    return true;
+    return true; //user had refresh token. now has access token
   }catch(err){
     console.log("verifyUser failed:", err);
-    return false;
+    return false; // give opportunity to get access to an access token
   }
 
   //invalid user
