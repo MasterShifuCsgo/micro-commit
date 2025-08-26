@@ -1,6 +1,10 @@
 import db from "../init.js";
 
 export function DoesUserExist(email){
-  const user = db.prepare("SELECT * from users WHERE email = ?").get(email);      
-  return user != undefined;
+  return db.prepare(`
+    SELECT *
+    FROM users
+    WHERE email = ?
+    AND username = ?`)
+    .get(email, username) != undefined; // true when found
 }

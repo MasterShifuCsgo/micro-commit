@@ -1,7 +1,7 @@
 import { signAccess, signRefresh } from "../jwt.js"
 import isInputDangerous from "../functions/isInputDangerous.js"
 import { DoesUserExist } from "../../database/functions/DoesUserExist.js";
-import { createErrorMessage } from "../../global/errorMessage.js";
+import { createErrorMessage } from "../../global/createErrorMessage.js";
 import { createFrefreshTokenCookie } from "../functions/createRefreshTokenCookie.js"
 
 export default function MakeRegister(db){
@@ -16,7 +16,7 @@ export default function MakeRegister(db){
         throw new createErrorMessage("Invalid Fields");
       }
     
-      if(DoesUserExist(email)){
+      if(DoesUserExist(email, username)){
         throw new createErrorMessage("User already exists");
       }
 

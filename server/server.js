@@ -15,7 +15,7 @@ app.use(cors({
   credentials: true //able to recieve cookies
 }));
 
-app.use(cookieParser());
+app.use(cookieParser()); //for parsing refresh tokens
 
 //TODO: remove in production
 app.use((req, res, next) => {

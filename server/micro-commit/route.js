@@ -11,6 +11,6 @@ export function MakeGoalsRoute(db){
   router.post("/add", MakeAdd(db));
   router.post("/delete", MakeDelete(db));
   router.post("/load", MakeLoad(db));
-  router.get("/getall", MakeGetAllGoals());
+  router.get("/getall", MakeGetAllGoals(db));
   return router;
 }

@@ -1,4 +1,4 @@
-import { createErrorMessage } from "../../global/errorMessage.js";
+import { createErrorMessage } from "../../global/createErrorMessage.js";
 import { signAccess, signRefresh ,verifyRefresh } from "../jwt.js";
 import isInputDangerous from "../functions/isInputDangerous.js"
 import { DoesUserExist } from "../../database/functions/DoesUserExist.js";
@@ -22,7 +22,7 @@ export default function MakeRefresh(){
         throw new createErrorMessage("Invalid Fields");
       }
     
-      if(!DoesUserExist(email)){
+      if(!DoesUserExist(email, username)){
         throw new createErrorMessage("User doesn't exist");
       }
 

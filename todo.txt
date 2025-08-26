@@ -6,7 +6,20 @@ finish creating the auth of the webiste
 - on page load, make it request an api endpoint
 - create the api endpoint
 
-finish with all JWT functions.
+resolveUser takes in a massive object res. make it so that it takes in a portion of it so it doesnt slow the computer down too much.
+
+create documentation for every function
+example: 
+/**
+ * Deletes a goal from the database.
+ *
+ * The goal is deleted only if both `goal_id` and `user_id` match,
+ * ensuring that users can delete only their own goals.
+ *
+ * @param {number} goal_id - The ID of the goal to delete.
+ * @param {number} user_id - The ID of the user who owns the goal.
+ * @returns {boolean} True if the goal was deleted, false otherwise.
+ */
 
 hours it took to finish: 
 

@@ -25,7 +25,6 @@ create a Toast for your login and register  and main pages, notifing when someth
 
   keep in mind or write down how you are going to use the results.
   modify backend endpoints based on that.
-  
 
 }.
 8. same for commits

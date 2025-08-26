@@ -1,4 +1,4 @@
-import { createErrorMessage } from "../../global/errorMessage.js";
+import { createErrorMessage } from "../../global/createErrorMessage.js";
 import isInputDangerous from "../functions/isInputDangerous.js"
 import { DoesUserExist } from "../../database/functions/DoesUserExist.js";
 import { signAccess, signRefresh } from "../jwt.js";
@@ -14,14 +14,13 @@ export default function MakeLogin(db){
         throw new createErrorMessage("Invalid Fields");
       }
     
-      if(!DoesUserExist(email)){
+      if(!DoesUserExist(email, username)){
         throw new createErrorMessage("User does not exist");
       }
 
     }catch(err){
       return res.status(401).send(err);
     }
-
 
     //TODO: send authEmail
 
@@ -42,6 +41,6 @@ export default function MakeLogin(db){
         
     createFrefreshTokenCookie(res, refreshToken);
 
-    res.status(200).send({accessToken: accessToken})
+    res.status(200).send({accessToken: accessToken});
   }
 }
