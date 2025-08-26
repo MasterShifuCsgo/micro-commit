@@ -1,5 +1,5 @@
-import getGoal from "../../database/functions/goal/getGoal";
-import { createErrorMessage } from "../../global/createErrorMessage";
+import getGoal from "../../database/functions/goal/getGoal.js";
+import { createErrorMessage } from "../../global/createErrorMessage.js";
 
 
 export default function MakeLoad(db){

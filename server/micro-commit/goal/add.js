@@ -1,4 +1,4 @@
-import { getGoal } from "../../database/functions/goal/getGoal.js";
+import getGoal from "../../database/functions/goal/getGoal.js";
 import { createErrorMessage } from "../../global/createErrorMessage.js";
 import resolveUser from "../global/resolveUser.js";
 import checkResBody from "../global/checkResBody.js";

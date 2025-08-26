@@ -1,6 +1,6 @@
-import checkResBody from "../global/checkResBody";
-import { createErrorMessage } from "../../global/createErrorMessage";
-import resolveUser from "../global/resolveUser";
+import checkResBody from "../global/checkResBody.js";
+import { createErrorMessage } from "../../global/createErrorMessage.js";
+import resolveUser from "../global/resolveUser.js";
 
 
 export default function MakeEdit(db){
