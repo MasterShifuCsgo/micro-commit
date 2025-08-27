@@ -1,16 +1,31 @@
 import { Router } from "express";
-import MakeEdit from "./goal/edit.js"
-import MakeAdd from "./goal/add.js"
-import MakeDelete from "./goal/delete.js"
+import MakeEditGoal from "./goal/edit.js"
+import MakeAddGoal from "./goal/add.js"
+import MakeDeleteGoal from "./goal/delete.js"
 import MakeGetAllGoals from "./goal/getallgoals.js"
-import MakeLoad from "./goal/load.js"
+import MakeLoadGoal from "./goal/load.js"
+import MakeEditCommit from "./commit/edit.js";
+import MakeAddCommit from "./commit/add.js";
+import MakeDeleteCommit from "./commit/delete.js";
+import MakeLoadCommit from "./commit/load.js";
+import MakeGetAllCommits from "./commit/getallcommits.js";
 
 export function MakeGoalsRoute(db){
   const router = Router();
-  router.post("/edit", MakeEdit(db));
-  router.post("/add", MakeAdd(db));
-  router.post("/delete", MakeDelete(db));
-  router.post("/load", MakeLoad(db));
+  router.post("/add", MakeAddGoal(db));
+  router.put("/edit", MakeEditGoal(db));
+  router.delete("/delete", MakeDeleteGoal(db));
+  router.post("/load", MakeLoadGoal(db));
   router.get("/getall", MakeGetAllGoals(db));
+  return router;
+}
+
+export function MakeCommitsRoute(db){
+  const router = Router();
+  router.post("/add", MakeAddCommit(db));
+  router.put("/edit", MakeEditCommit(db));
+  router.delete("/delete", MakeDeleteCommit(db));
+  router.post("/load", MakeLoadCommit(db));
+  router.get("/getall", MakeGetAllCommits(db));
   return router;
 }

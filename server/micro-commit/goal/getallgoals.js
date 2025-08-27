@@ -13,7 +13,7 @@ export default function MakeGetAllGoals(db){
 
     //get all goals from user    
     const goals = db.prepare("SELECT * from goals WHERE account_id=?").all(user.id);    
-
+    
     //send json
     res.status(200).send({goals: goals})
   }

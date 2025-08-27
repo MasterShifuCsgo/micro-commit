@@ -1,6 +1,6 @@
 import db from "../init.js";
 
-export function DoesUserExist(email){
+export function DoesUserExist(email, username){
   return db.prepare(`
     SELECT *
     FROM users

@@ -1,6 +1,6 @@
 import { createErrorMessage } from "../../global/createErrorMessage.js";
 import isInputDangerous from "../functions/isInputDangerous.js"
-import { DoesUserExist } from "../../database/functions/DoesUserExist.js";
+import { DoesUserExist } from "../../database/functions/doesUserExist.js";
 import { signAccess, signRefresh } from "../jwt.js";
 import { createFrefreshTokenCookie } from "../functions/createRefreshTokenCookie.js";
 

@@ -1,14 +1,14 @@
 import { signAccess, signRefresh } from "../jwt.js"
 import isInputDangerous from "../functions/isInputDangerous.js"
-import { DoesUserExist } from "../../database/functions/DoesUserExist.js";
+import { DoesUserExist } from "../../database/functions/doesUserExist.js";
 import { createErrorMessage } from "../../global/createErrorMessage.js";
 import { createFrefreshTokenCookie } from "../functions/createRefreshTokenCookie.js"
 
 export default function MakeRegister(db){
   return async function register(req, res){            
-    const {username, email} = req.body;
+    const { username, email } = req.body;
     
-    //TODO: if(!sendAuthEmail()){res.status(401).send("user failed to auth")}    
+    //TODO: if(!sendAuthEmail()){res.status(401).send("user failed to auth")}       
 
     try{
       

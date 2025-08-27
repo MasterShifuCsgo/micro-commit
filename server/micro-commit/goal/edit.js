@@ -19,15 +19,9 @@ export default function MakeEditGoal(db){
     const { goal_name, goal_id } = req.body;    
         
 
-    const result = editGoalName(goal_id, user.id, goal_name);
+    const result = editGoalName(goal_id, user_id, goal_name);
     if(!result){return res.status(501).send(createErrorMessage("failed to edit goal name"))};
 
     res.sendStatus(200);
   }
 }
-
-
-
-
-
-
