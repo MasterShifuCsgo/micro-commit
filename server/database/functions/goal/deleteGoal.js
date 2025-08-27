@@ -10,7 +10,7 @@ import db from "../../init.js";
  * @param {number} goal_id - The ID of the goal to delete.
  * @param {number} user_id - The ID of the user who owns the goal.
  * @returns {boolean} True if the goal was deleted, false otherwise.
- */
+*/
 export default function deleteGoal(goal_id, user_id) {
   const result = db
     .prepare("DELETE FROM goals WHERE id = ? AND account_id = ?")

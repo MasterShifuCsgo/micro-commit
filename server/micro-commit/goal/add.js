@@ -4,7 +4,7 @@ import resolveUser from "../global/resolveUser.js";
 import checkResBody from "../global/checkResBody.js";
 import createGoal from "../../database/functions/goal/createGoal.js";
 
-export default function Makeadd(){
+export default function MakeAddGoal(){
   return async function Add(req, res){
 
     //check if body has necessary fields                    

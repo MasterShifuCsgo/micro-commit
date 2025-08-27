@@ -1,9 +1,9 @@
 import checkResBody from "../global/checkResBody.js";
 import { createErrorMessage } from "../../global/createErrorMessage.js";
 import resolveUser from "../global/resolveUser.js";
+import editGoalName from "../../database/functions/goal/editGoalName.js";
 
-
-export default function MakeEdit(db){
+export default function MakeEditGoal(db){
   return async function Edit(req, res){
     
     if(!checkResBody(req.body, ['goal_id', 'goal_name']))
@@ -16,11 +16,18 @@ export default function MakeEdit(db){
     
     if(user == null){return res.status(401).send(createErrorMessage("access token expired or invalid"))}
 
-    const { goal_name, goal_id } = res.body;
+    const { goal_name, goal_id } = req.body;    
+        
 
-    const result = editGoalName(goal_id, user_id, goal_name);
+    const result = editGoalName(goal_id, user.id, goal_name);
     if(!result){return res.status(501).send(createErrorMessage("failed to edit goal name"))};
 
     res.sendStatus(200);
   }
 }
+
+
+
+
+
+

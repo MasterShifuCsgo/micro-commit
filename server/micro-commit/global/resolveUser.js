@@ -3,6 +3,13 @@ import { verifyAccess } from "../../JWT/jwt.js";
 
 
 //used to check if token is valid. returns the data inside token if true.
+
+
+/**
+ * used to get user from access token. 
+ * 
+ * @param {*} req - regular request in express.
+ */
 export default function resolveUser(req){
   //decode accessToken    
     const token = req.headers['authorization'].split(" ")[1];    
@@ -10,6 +17,5 @@ export default function resolveUser(req){
     if(user == null){throw "invalid access token"}          
     if(isInputDangerous(user)){throw "Invalid access token fields"}  // cleans just incase access token key is in the hands of a bad person.  
     //! if request does not reach here, then there has been a breach. access token was stolen.    
-
     return user;
 }
