@@ -19,7 +19,7 @@ export default function Register(){
       href: "login",      
       handleSubmit: async (form) => {                 
 
-        const res = await fetch("http://localhost:3000/jwt/register", {
+        const res = await fetch("http://localhost:3000/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
