@@ -7,9 +7,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100svh; /* Use svh for better mobile support */
+  min-height: 100svh; 
   background-color: #f0f2f5;
-  box-sizing: border-box; /* Ensure padding and borders are included in element's total width and height */
+  box-sizing: border-box; 
 }
 
 .inner_container {
@@ -29,8 +29,8 @@ body {
   padding: 2.5em 3.5em;
   background-color: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 450px; /* Limits the form's width on larger screens */
-  width: 90%; /* Let it take up 90% of the viewport on all screens, but capped at 450px */
+  max-width: 450px; 
+  width: 90%; 
   box-sizing: border-box;
 }
 
@@ -42,7 +42,7 @@ body {
   font-size: 1em;
   color: #333;
   transition: all 0.2s ease-in-out;
-  width: 100%; /* Ensure input fields fill their container */
+  width: 100%; 
 }
 
 .input:hover {
@@ -78,14 +78,14 @@ body {
   background-color: #4a74c4;
 }
 
-/* Media Query for Mobile and Small Tablets */
+
 @media (max-width: 480px) {
   .form {
     border: none;
     border-radius: 0;
-    padding: 2em 1em; /* Reduce horizontal padding */
+    padding: 2em 1em; 
     box-shadow: none;
-    width: 100%; /* Take up the full width */
+    width: 100%; 
   }
 
   .inner_container {

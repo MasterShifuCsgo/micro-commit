@@ -10,11 +10,10 @@ export default function MakeGetAllGoals(db){
     }catch(e){return res.status(401).send(createErrorMessage(e))}    
 
     if(user == null){return res.status(401).send(createErrorMessage("access token expired or invalid"))}
-
-    //get all goals from user    
+    
+    //get all goals from user
     const goals = db.prepare("SELECT * from goals WHERE account_id=?").all(user.id);    
     
-    //send json
-    res.status(200).send({goals: goals})
+    res.status(200).send(goals);
   }
 }
