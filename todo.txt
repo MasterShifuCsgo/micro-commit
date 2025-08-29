@@ -21,6 +21,20 @@ example:
  * @returns {boolean} True if the goal was deleted, false otherwise.
  */
 
+finish wiring together 
+1. when user clicks on goal, loads the commits of the goal. 
+if no goals shows image and text that it didnt find any
+2. display about goals.
+3.implement modal that would allow user to add a new goal
+4. implement modal that would allow user to add a new commit
+5. implement the new page where user can view the commits commit_message.
+
+
+
+
+
 hours it took to finish: 
 
-13h
+17h
+
+6h of stupid work

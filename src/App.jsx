@@ -1,7 +1,7 @@
 import {Routes, Route} from "react-router-dom";
 import MainPage from "./pages/MainPage/MainPage.jsx";
 import Login from "./pages/Login/Login.jsx";
-import Register from "./pages/Register/Register.jsx";
+import Register from "./pages/register/Register.jsx";
 import { SessionProvider } from "./contexts/Session.jsx";
 import './App.css';
 

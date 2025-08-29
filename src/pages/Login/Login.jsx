@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { verifyUser } from "../functions/verifyUser";
 import { useSession } from "../../contexts/Session";
-import Form from "../components/Form";
+import Form from "../components/Form/Form";
 
 export default function Login(){
   const ctx = useSession();
@@ -23,7 +23,8 @@ export default function Login(){
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(form)
+          body: JSON.stringify(form),
+          credentials: "include"
         });
 
         let data = null;

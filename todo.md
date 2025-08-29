@@ -10,8 +10,7 @@ create a Toast for your login and register  and main pages, notifing when someth
 
 
 
-1. create getallgoals endpoint 
-2. test endpoint
+
 3. implement to mainGoalPage
 4. create middleware and implement it
 5. create /goal/add load delete and edit endpoints

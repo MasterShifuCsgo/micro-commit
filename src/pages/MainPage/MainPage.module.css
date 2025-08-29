@@ -1,0 +1,83 @@
+/* MainPage.module.css */
+.container {
+  height: 100svh;                    /* full viewport height */
+  display: grid;
+  grid-template-columns: auto 1fr;              
+}
+
+
+.sidebar {
+  min-height: 0;                     /* allow inner scroll */
+  overflow: auto;
+  box-sizing: border-box;
+  border-right: 1px solid #000;      /* was full border */
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: fit-content;
+}
+
+.goalList {
+  list-style: none;
+  margin: 0;
+  padding: 0 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+  gap: 6px;
+  min-height: 0;
+  overflow: auto;
+  
+  /* Firefox */
+  scrollbar-width: auto;
+  scrollbar-color: #bbbbbb #ffffff; /* thumb = blue-500, track = black */
+}
+
+
+
+
+/* Optional: left-side scrollbar trick */
+.scrollLeft { direction: rtl; }
+.scrollLeftInner { direction: ltr; }
+
+.content {
+  min-width: 0;                      /* critical to prevent horizontal overflow */
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;      /* info area + commits area */
+  gap: 2em;
+  padding: 0 16px;
+}
+
+.about_goal {
+  padding: 16px 0;
+  border-bottom: 1px solid #000;
+  font-size: larger;
+}
+
+.commits {
+  min-height: 0;                     /* allow this to scroll */
+  overflow: auto;
+  border: 1px solid #000;
+  padding: 16px;
+  /* width: auto;      ← remove 90vw; let grid size it */
+}
+
+.goal_button {
+  cursor: pointer;
+  padding: 2px 8px;
+  border: 1px solid #000;
+  background: #fff;
+  border-radius: 4px;
+}
+.goal_button:hover { background: #00000018; }
+
+.add_goal {
+  border: none;
+  background: #00000023;
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: larger;
+}
+.add_goal:hover { background: #0000002f; }

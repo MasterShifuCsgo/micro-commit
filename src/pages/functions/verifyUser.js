@@ -5,7 +5,7 @@ import { useSession } from "../../contexts/Session.jsx";
 export async function verifyUser(ctx){  
 
   //check if access token exists
-  if(ctx.accessToken != ""){
+  if(ctx.accessToken != null){
     return true; //user already has an access token
   }
 
