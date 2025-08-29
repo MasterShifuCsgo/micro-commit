@@ -2,7 +2,6 @@ import { createErrorMessage } from "../../global/createErrorMessage.js";
 import isInputDangerous from "../functions/isInputDangerous.js"
 import { DoesUserExist } from "../../database/functions/doesUserExist.js";
 import { signAccess, signRefresh } from "../jwt.js";
-import { createFrefreshTokenCookie } from "../functions/createRefreshTokenCookie.js";
 
 //takes bearer token
 export default function MakeLogin(db){
@@ -38,8 +37,13 @@ export default function MakeLogin(db){
       username: username,
       email:email
     })
-        
-    createFrefreshTokenCookie(res, refreshToken);
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: false, //TODO: CHANGE THIS IN PRODUCTION. your site should be only on https not http
+      sameSite: "lax",
+      path: "/"
+    })
 
     res.status(200).send({accessToken: accessToken});
   }

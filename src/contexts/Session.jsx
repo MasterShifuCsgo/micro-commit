@@ -6,11 +6,11 @@ export const SessionContext = createContext();
 export const SessionProvider = ({ children }) => {
 
   const navigate = useNavigate();
-  const [accessToken, setAccessToken] = useState("");  
+  const [accessToken, setAccessToken] = useState(null);  
 
   async function sendRefreshToken(){
 
-    const res = await fetch(`http://localhost:3000/jwt/refresh`, {
+    const res = await fetch(`http://localhost:3000/refresh`, {
       method: "GET",
       credentials: "include"
     })
@@ -22,8 +22,7 @@ export const SessionProvider = ({ children }) => {
     if(!res.ok){throw new Error(data.error)}
 
     setAccessToken(data.accessToken);    
-    console.log("saved accessToken from refresh endpoint");
-    console.log(data);
+    console.log("saved accessToken from refresh endpoint");    
   }
 
   function navigateTo(place){

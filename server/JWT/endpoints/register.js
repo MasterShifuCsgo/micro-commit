@@ -2,7 +2,6 @@ import { signAccess, signRefresh } from "../jwt.js"
 import isInputDangerous from "../functions/isInputDangerous.js"
 import { DoesUserExist } from "../../database/functions/doesUserExist.js";
 import { createErrorMessage } from "../../global/createErrorMessage.js";
-import { createFrefreshTokenCookie } from "../functions/createRefreshTokenCookie.js"
 
 export default function MakeRegister(db){
   return async function register(req, res){            
@@ -44,7 +43,12 @@ export default function MakeRegister(db){
       email:email
     })
     
-    createFrefreshTokenCookie(res, refreshToken);
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: false, //TODO: CHANGE THIS IN PRODUCTION. your site should be only on https not http
+      sameSite: "lax",
+      path: "/"
+    })
 
     res.status(201).send({accessToken: accessToken})
   }
