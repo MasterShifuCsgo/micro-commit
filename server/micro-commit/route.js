@@ -15,7 +15,7 @@ export function MakeGoalsRoute(db){
   router.post("/add", MakeAddGoal(db));
   router.put("/edit", MakeEditGoal(db));
   router.delete("/delete", MakeDeleteGoal(db));
-  router.post("/load", MakeLoadGoal(db));
+  router.get("/load/:goal_id", MakeLoadGoal(db));
   router.get("/getall", MakeGetAllGoals(db));
   return router;
 }
@@ -25,7 +25,7 @@ export function MakeCommitsRoute(db){
   router.post("/add", MakeAddCommit(db));
   router.put("/edit", MakeEditCommit(db));
   router.delete("/delete", MakeDeleteCommit(db));
-  router.post("/load", MakeLoadCommit(db));
-  router.get("/getall", MakeGetAllCommits(db));
+  router.get("/load/:commit_id", MakeLoadCommit(db));
+  router.get("/getall/:goal_id", MakeGetAllCommits(db));
   return router;
 }

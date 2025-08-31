@@ -1,0 +1,21 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90%;
+  font-size: larger;
+  width: 100%;
+}
+
+ol {
+  display: flex;
+  flex-direction: column;
+}
+
+ol li {  
+  list-style-type: decimal;
+  font-size: large;
+  gap:20px;
+}

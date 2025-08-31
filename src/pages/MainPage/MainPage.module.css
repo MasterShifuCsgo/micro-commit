@@ -1,53 +1,56 @@
 /* MainPage.module.css */
 .container {
-  height: 100svh;                    /* full viewport height */
   display: grid;
-  grid-template-columns: auto 1fr;              
+  grid-template-columns: minmax(4rem, clamp(1rem, 50vw, 11rem)) 1fr; /* sidebar + content */  
+  height: 100svh;
+  width: 100%;
+  gap:1em;
 }
 
-
 .sidebar {
-  min-height: 0;                     /* allow inner scroll */
-  overflow: auto;
-  box-sizing: border-box;
-  border-right: 1px solid #000;      /* was full border */
-  padding: 12px;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
+  min-width: max-content;
+  width: max-content;
   gap: 12px;
-  max-width: fit-content;
+  padding: 12px;
+  border-right: 1px solid #000;
+  box-sizing: border-box;
+  overflow: auto;
+  min-height: 0;
+  white-space: nowrap;
+  min-width: max-content; /* prevent collapse */
+}
+
+ul li {
+  list-style-type: none;
 }
 
 .goalList {
-  list-style: none;
   margin: 0;
-  padding: 0 8px 8px 8px;
+  padding: 0 8px 8px;
   display: flex;
   flex-direction: column;
-  direction: rtl;
   gap: 6px;
-  min-height: 0;
   overflow: auto;
-  
-  /* Firefox */
+  min-height: 0;
+
+  /* left-side scrollbar trick */
+  direction: rtl;
   scrollbar-width: auto;
-  scrollbar-color: #bbbbbb #ffffff; /* thumb = blue-500, track = black */
+  scrollbar-color: #bbb #fff;
 }
 
-
-
-
-/* Optional: left-side scrollbar trick */
-.scrollLeft { direction: rtl; }
-.scrollLeftInner { direction: ltr; }
+.goalList * { direction: ltr; }
 
 .content {
-  min-width: 0;                      /* critical to prevent horizontal overflow */
-  min-height: 0;
   display: grid;
-  grid-template-rows: auto 1fr;      /* info area + commits area */
+  grid-template-rows: auto 1fr; /* top info + commits */
   gap: 2em;
-  padding: 0 16px;
+  padding: 16px;  
+  min-width: 0; /* critical in grid/flex */
+  min-height: 0;
 }
 
 .about_goal {
@@ -57,27 +60,78 @@
 }
 
 .commits {
-  min-height: 0;                     /* allow this to scroll */
-  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));    
+  justify-items: center;
+  align-items: center;
   border: 1px solid #000;
-  padding: 16px;
-  /* width: auto;      ← remove 90vw; let grid size it */
+  padding: 16px;  
+  min-height: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  gap:10px;
+  transition: all 2s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
-.goal_button {
+.commit {  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+  padding: 0.7em;
+  border: solid 1px#000 ;  
+  box-sizing: border-box;
+  width: min-content;
+  white-space: nowrap;
+  gap:10px;
+}
+
+.commit h1 {
+  font-size: large;
+  font-weight: 500;
+}
+
+.commit:hover {
+  transform: scale(1.05);
+}
+
+.commit_btn {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  object-position: center;
   cursor: pointer;
-  padding: 2px 8px;
-  border: 1px solid #000;
-  background: #fff;
+  background-color: rgba(48, 228, 48, 0.658);
+  border-radius: 0.5em;
+}
+
+.goal_button,
+.add_goal {
+  cursor: pointer;
+  font-size: 16px;
   border-radius: 4px;
 }
-.goal_button:hover { background: #00000018; }
+
+.goal_button {  
+  padding: 2px 8px; 
+  border: solid 2px #00000000;
+  background: #0000001c;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  border-radius: 6px;
+  transition: all 0.2s cubic-bezier(0.39, 0.575, 0.565, 1); 
+}
+
+.goal_button:hover{
+  border: 2px solid #000;
+  background: #00000018;
+}
 
 .add_goal {
+  padding: 8px 12px;
   border: none;
   background: #00000023;
-  cursor: pointer;
-  padding: 8px 12px;
-  font-size: larger;
 }
+
 .add_goal:hover { background: #0000002f; }

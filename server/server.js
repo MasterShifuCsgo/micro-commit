@@ -37,7 +37,7 @@ app.use("/commit", MakeCommitsRoute(db));
 app.listen(PORT, () => {
   console.log(`Server is now open on http://localhost:${PORT}`);
 }).on("error", (err)=> {
-  console.log("server failed to start:\n", err)
+  console.log("server failed to start:\n", err);
 })
 
 

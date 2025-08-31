@@ -4,13 +4,13 @@ import resolveUser from "../global/resolveUser.js";
 import checkResBody from "../global/checkResBody.js";
 
 export default function MakeLoadGoal(db){
-  return async function Load(req, res){
+  return async function Load(req, res){        
 
-    if(!checkResBody(req.body, ['goal_id'])){
+    if(!checkResBody(req.params, ['goal_id'])){
     return res.status(401).send(
-      createErrorMessage("invalid body for request, missing ['goal_id']")
+      createErrorMessage("missing ['goal_id'] in params")
     )};  
-
+    
     let user = null;
     try{
       user = resolveUser(req); 
@@ -19,8 +19,8 @@ export default function MakeLoadGoal(db){
     if(user == null){
         return res.status(401).send(createErrorMessage("access token expired or invalid"))
     };
-
-    const { goal_id } = req.body;
+  
+    const { goal_id } = req.params;
 
     const goal = getGoal(goal_id, user.id);
     if(goal == null){

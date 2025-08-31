@@ -30,6 +30,11 @@ if no goals shows image and text that it didnt find any
 5. implement the new page where user can view the commits commit_message.
 
 
+add loading to things that need to be fetched that have a waiting time.
+Every error would display on the page if there is one. add a context, create a component which is on every page.
+  make it not take up any space on the screen. when there is an update in the conetxt like error, creates the popup and removes the displaying of it shortly after.
+
+create /editcommit page
 
 
 
@@ -38,3 +43,14 @@ hours it took to finish:
 17h
 
 6h of stupid work
+
+
+
+
+
+Lessons i have learned:
+
+you know you have the knowledge to make what you want a reality on that website.
+yet you still say you have no idea and ask chatGPT to finish your frontend.
+you can do the same if you just tried to make it work yourself. 
+you have all the knowledge.

@@ -21,8 +21,8 @@ export const SessionProvider = ({ children }) => {
     
     if(!res.ok){throw new Error(data.error)}
 
-    setAccessToken(data.accessToken);    
-    console.log("saved accessToken from refresh endpoint");    
+    setAccessToken(data.accessToken);
+    console.log("saved accessToken from refresh endpoint");
   }
 
   function navigateTo(place){

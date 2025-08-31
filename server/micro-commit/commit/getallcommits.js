@@ -8,15 +8,15 @@ export default function MakeGetAllCommits(){
     let user = null;
     try{
       user = resolveUser(req);
-    }catch(e){res.status(401).send(createErrorMessage(e))};                                  
+    }catch(e){return res.status(401).send(createErrorMessage(e))};                                  
 
-    if(!checkResBody(req.body, ['goal_id']))
+    if(!checkResBody(req.params, ['goal_id']))
       {return res.status(401).send(createErrorMessage("invalid body for request, missing 'goal_id'"))}; 
 
-    const { goal_id } = req.body;
+    const { goal_id } = req.params;
     
     try{
-      const commits = getAllCommits(user.id, goal_id);   
+      const commits = getAllCommits(user.id, goal_id);      
       res.status(200).send(commits);
     }catch(e){return res.status(501).send(createErrorMessage(e))}
     
