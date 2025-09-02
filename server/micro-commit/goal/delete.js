@@ -21,6 +21,6 @@ export default function MakeDeleteGoal(){
     const result = deleteGoal(goal_id, user.id);    
     if(!result){return res.status(501).send(createErrorMessage("Failed to delete goal. goal probably doesnt exist."))};
 
-    res.sendStatus(200);
+    res.status(200).send({success: "delete goal"});
   }
 }

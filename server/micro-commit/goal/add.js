@@ -7,7 +7,7 @@ import createGoal from "../../database/functions/goal/createGoal.js";
 export default function MakeAddGoal(){
   return async function Add(req, res){
 
-    //check if body has necessary fields                    
+    //check if body has necessary fields            
     if(!checkResBody(req.body, ['goal_name'])){
     return res.status(401).send(createErrorMessage("invalid body for request, missing 'goal_name'"))};
 
@@ -29,6 +29,6 @@ export default function MakeAddGoal(){
     const result = createGoal(user.id, goal_name);
     if(!result){return res.status(501).send(createErrorMessage("Goal was not created"));}
     
-    res.sendStatus(201);
+    res.status(201).send({success: "created goal"});
   }
 }

@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useSession } from "../../contexts/Session";
 import styles from "./MainPage.module.css";
 import Button from "./components/Button";
-import NoCommits from "./components/NoCommits";
+import Commits from "./components/commits/Commits";
+import AboutGoal from "./components/AboutGoal/AboutGoal";
+import ModalForm from "./components/Modal/Modal";
 
 async function fetchAllGoals(accessToken) {
   const res = await fetch("http://localhost:3000/goal/getall", {
@@ -18,11 +20,32 @@ async function fetchAllGoals(accessToken) {
   return data;
 }
 
+async function fetchGoal(accessToken, goal_id){
+    return await fetch(`http://localhost:3000/goal/load/${goal_id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "authorization": `Bearer ${accessToken}`
+    }})
+}
+
+async function fetchCommits(accessToken, goal_id){
+  return await fetch(`http://localhost:3000/commit/getall/${goal_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${accessToken}`
+      }
+    })
+}
+
 export default function MainPage() {
   const ctx = useSession();
   const [goals, setGoals] = useState([]);
   const [selectedGoal, setSelectedGoal] = useState(null);
-  const [commits, setCommits] = useState([]); // keep array for future list
+  const [commits, setCommits] = useState([]); // keep array for future list  
+  const [ modalStatus, setModalStatus ] = useState(false); //is modal displayed or not.  
+
 
   useEffect(() => {    
     (async () => {
@@ -35,7 +58,7 @@ export default function MainPage() {
         }catch(e){
           ctx.navigateTo("/login");          
         }
-        return; //return early. rerender
+        return; // return early. rerender
       }
 
       try {        
@@ -48,100 +71,86 @@ export default function MainPage() {
   }, [ctx.accessToken]);
 
   function handleAddGoal() {
-    console.log("Add goal");
+    //show modal and its from            
+    setModalStatus(true);
   }
 
   async function handleGoalButton(clickedGoal) {         
-
-    //fetch specific goal from server and set contents
-    let data = await fetch(`http://localhost:3000/goal/load/${clickedGoal.id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": `Bearer ${ctx.accessToken}`
-      }
-    })
     
-    //sometimes await data.json() does not throw an error, but server response is fucked, so must use try to if statement for that.
-    let goal = null;
-    try{
-      goal = await data.json()
+    //if accessToken is expired, retry useEffect.
+    if(!ctx.accessToken){ 
+      SetRefreshPage(v => !v); 
+      return;
+    }
+        
+    //fetch specific goal from server and set contents
+    let goal = null;    
+    try{      
+      const data = await fetchGoal(ctx.accessToken, clickedGoal.id);
+      goal = await data.json();         
       setSelectedGoal(goal);
     }catch(e){console.log(e)};
-    if(goal == null){console.log("BAD JSON. Try logging in again."); return;};        
+    if(goal == null){console.log("fetched goals returned null. Try refreshing the page."); return;};
 
     //fetch all commits to display them.
-    data = await fetch(`http://localhost:3000/commit/getall/${goal.id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": `Bearer ${ctx.accessToken}`
-      }
-    })
-
     let commits = null;
-    try{
-      commits = await data.json()      
-      setCommits(commits);
+    try{      
+      const data = await fetchCommits(ctx.accessToken, clickedGoal.id);      
+      commits = await data.json();
+      setCommits(commits); // set commits for displaying
     }catch(e){console.log(e)};
-    if(commits == null){console.log("BAD JSON. try logging in again"); return;};    
+    if(commits == null){console.log("fetched commits returned null. Try refreshing the page."); return;};    
+
+  }
+
+  async function handleSubmit(fields){      
+    const goal_name = fields['Goal name'];
+
+    const data = await fetch("http://localhost:3000/goal/add", {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json",
+      "authorization": `Bearer ${ctx.accessToken}`
+    },
+    body: JSON.stringify({goal_name: goal_name})
+    })
+    
+    console.log(await data.json())
+
+    //create POST request to save the data.
 
   }
 
   return (    
-    <div className={styles.container}>
+    <>
+    <div className={styles.container}>      
       <aside className={styles.sidebar}>
-        <Button className={styles.add_goal} onClick={handleAddGoal}>Add Goal</Button>
-            <ul className={styles.goalList}>
-              {goals.map(goal => (
-                <li key={goal.id}>
-                  <Button
-                    style={styles.goal_button}
-                    onClick={() => handleGoalButton(goal)}
-                  >
-                    {goal.name}
-                  </Button>
-                </li>
-              ))}
-            </ul>
+        <button 
+        className={styles.add_goal} 
+        onClick={() => handleAddGoal()}>Add Goal</button>
+          <ul className={styles.goalList}>
+            {goals.map(goal => (
+              <li key={goal.id}>
+                <button
+                  className={styles.goal_button}
+                  onClick={() => handleGoalButton(goal)}
+                >
+                  {goal.name}
+                </button>
+              </li>
+            ))}
+          </ul>
       </aside>
-      
-      
       <main className={styles.content}>
-        {/* About Goal*/ }
-        <div className={styles.about_goal}>
-          {selectedGoal ? (
-            <>
-              <p>{selectedGoal['name'] == null ?
-               "Nothing" : selectedGoal['name']}</p>
-              <p>Date: {selectedGoal['date_created'] == null ?
-               "no data" : selectedGoal['date_created']}</p>
-              <p>latest_commit: {selectedGoal['latest_commit'] == null ?
-               "no data" : selectedGoal['latest_commit']}</p>
-            </>
-          ) : (
-            <p>Goal not selected</p>
-          )}          
-        </div>
-      
-        {/* Commits */}
-        {commits.length == 0 ? <NoCommits/> :
-            <div className={styles.commits}>           
-               {commits.map((commit) => (
-                 <div key={commit.id} className={styles.commit}>
-                    <div>
-                      <h1>{commit.name}</h1>
-                      <p>{(commit.date_created?.slice(0, 10) || "null") + "..."}</p>
-                    </div>                    
-                    <img
-                     className={styles.commit_btn}
-                     src="/play-button.svg"
-                     alt="play button"
-                    />
-                 </div>
-               ))}
-            </div>}
+        <AboutGoal goal={selectedGoal}/>
+        <Commits commits={commits}/> 
       </main>
     </div>
+    <ModalForm
+     on={modalStatus}     
+     inputs={["Goal name"]}
+     handleSubmit={(fields) => handleSubmit(fields)}
+     onClose={() => {setModalStatus(false);}}/>
+    </>
   );
 }

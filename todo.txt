@@ -21,14 +21,6 @@ example:
  * @returns {boolean} True if the goal was deleted, false otherwise.
  */
 
-finish wiring together 
-1. when user clicks on goal, loads the commits of the goal. 
-if no goals shows image and text that it didnt find any
-2. display about goals.
-3.implement modal that would allow user to add a new goal
-4. implement modal that would allow user to add a new commit
-5. implement the new page where user can view the commits commit_message.
-
 
 add loading to things that need to be fetched that have a waiting time.
 Every error would display on the page if there is one. add a context, create a component which is on every page.
@@ -36,16 +28,15 @@ Every error would display on the page if there is one. add a context, create a c
 
 create /editcommit page
 
+on MainPage, server should return a specific error that the frontend reacts to, to send the refresh token again.
 
+when i refresh the page i can bomb my server.
 
 hours it took to finish: 
 
 17h
 
 6h of stupid work
-
-
-
 
 
 Lessons i have learned:

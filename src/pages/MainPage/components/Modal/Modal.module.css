@@ -1,0 +1,124 @@
+/* Full-screen dimmed backdrop */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem; /* breathing room on small screens */
+  box-sizing: border-box;
+}
+
+/* Card-like modal, matching your form’s look */
+.modal {
+  position: relative;
+  border: 1px solid #d4d4d4;
+  border-radius: 0.75em;
+  padding: 2.5em 3.5em;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+ul li {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Title */
+.title {
+  margin: 0 0 0.75em 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Close “X” button */
+.close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.9rem;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #666;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.close:hover { opacity: 0.75; }
+
+/* Form layout, matching the original */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.67em;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.input_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* Inputs use the same blue accent and behavior */
+.input {
+  border: 2px solid #5a91ed;
+  border-radius: 0.5em;
+  padding: 0.9em 1.2em;
+  box-sizing: border-box;
+  font-size: 1em;
+  color: #333;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+}
+
+.input:hover { border-color: #4a74c4; }
+
+.input:focus {
+  outline: none;
+  border-color: #3f68b8;
+  box-shadow: 0 0 0 3px rgba(90, 145, 237, 0.3);
+}
+
+/* Submit button matches the pill style */
+.submit_btn {
+  font-size: 1.1em;
+  font-weight: 600;
+  border: none;
+  border-radius: 4em;
+  background-color: #5a91ed;
+  color: #ffffff;
+  width: 100%;
+  padding: 0.8em 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.submit_btn:hover { background-color: #4a74c4; }
+
+/* Mobile: flatten like your original small-screen form */
+@media (max-width: 480px) {
+  .modal {
+    border: none;
+    border-radius: 0;
+    padding: 2em 1em;
+    box-shadow: none;
+    width: 100%;
+  }
+}

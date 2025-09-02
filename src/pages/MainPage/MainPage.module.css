@@ -53,57 +53,9 @@ ul li {
   min-height: 0;
 }
 
-.about_goal {
-  padding: 16px 0;
-  border-bottom: 1px solid #000;
-  font-size: larger;
-}
 
-.commits {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));    
-  justify-items: center;
-  align-items: center;
-  border: 1px solid #000;
-  padding: 16px;  
-  min-height: 0;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  gap:10px;
-  transition: all 2s cubic-bezier(0.23, 1, 0.320, 1);
-}
 
-.commit {  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: default;
-  padding: 0.7em;
-  border: solid 1px#000 ;  
-  box-sizing: border-box;
-  width: min-content;
-  white-space: nowrap;
-  gap:10px;
-}
 
-.commit h1 {
-  font-size: large;
-  font-weight: 500;
-}
-
-.commit:hover {
-  transform: scale(1.05);
-}
-
-.commit_btn {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  object-position: center;
-  cursor: pointer;
-  background-color: rgba(48, 228, 48, 0.658);
-  border-radius: 0.5em;
-}
 
 .goal_button,
 .add_goal {
