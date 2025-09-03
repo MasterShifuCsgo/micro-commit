@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "../../contexts/Session";
 import styles from "./MainPage.module.css";
-import Button from "./components/Button";
 import Commits from "./components/commits/Commits";
 import AboutGoal from "./components/AboutGoal/AboutGoal";
 import ModalForm from "./components/Modal/Modal";
