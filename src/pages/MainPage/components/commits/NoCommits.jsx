@@ -2,7 +2,7 @@ import styles from "./NoCommits.module.css";
 
 export default function NoCommits(){
 
-  return(
+  return(    
     <div className={styles.container}>
       <h1>Didn't find any commits :(</h1>
       <ol>
@@ -14,3 +14,6 @@ export default function NoCommits(){
     </div>
   );
 }
+
+
+

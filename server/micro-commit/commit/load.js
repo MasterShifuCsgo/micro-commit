@@ -12,14 +12,15 @@ export default function MakeLoadCommit(){
     let user = null;
     try{
       user = resolveUser(req);
-    }catch(e){res.status(401).send(createErrorMessage(e))};    
+    }catch(e){return res.status(401).send(createErrorMessage(e))};    
 
     const { commit_id } = req.params;
 
     try{
       const commit = loadCommit(commit_id, user.id);
-      if(commit == undefined){return res.status(501).send(createErrorMessage("commit does not exist"))}
-    return res.status(200).send(commit);
+      if(commit == undefined){return res.status(501).send(createErrorMessage("commit does not exist"))}      
     }catch(e){return res.status(501).send(createErrorMessage(e))};    
+    
+    res.status(200).send(commit);
   }
 }

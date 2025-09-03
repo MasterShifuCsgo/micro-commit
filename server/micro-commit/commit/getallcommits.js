@@ -15,10 +15,11 @@ export default function MakeGetAllCommits(){
 
     const { goal_id } = req.params;
     
+    let commits = null;
     try{
-      const commits = getAllCommits(user.id, goal_id);      
-      res.status(200).send(commits);
+      commits = getAllCommits(user.id, goal_id);            
     }catch(e){return res.status(501).send(createErrorMessage(e))}
-    
+
+    res.status(200).send(commits);
   }
 }

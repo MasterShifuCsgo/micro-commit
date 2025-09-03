@@ -22,6 +22,6 @@ export default function MakeEditCommit(){
       if(!status){return res.status(501).send(createErrorMessage("failed to edit commit"))}
     }catch(e){return res.status(501).send(createErrorMessage(e))} //function also checks if goal_id and user_id match.
 
-    res.sendStatus(200);
+     res.status(200).send({success: "edited commit"});
   }
 }

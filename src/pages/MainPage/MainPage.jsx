@@ -44,7 +44,7 @@ export default function MainPage() {
   const [goals, setGoals] = useState([]);
   const [selectedGoal, setSelectedGoal] = useState(null);
   const [commits, setCommits] = useState([]); // keep array for future list  
-  const [ modalStatus, setModalStatus ] = useState(false); //is modal displayed or not.  
+  const [modalStatus, setModalStatus] = useState({status: false, onSumbit: null, fields: []}); //holds all data modal uses
 
 
   useEffect(() => {    
@@ -56,7 +56,7 @@ export default function MainPage() {
         try{
           await ctx.sendRefreshToken()      
         }catch(e){
-          ctx.navigateTo("/login");          
+          ctx.navigateTo("/login");
         }
         return; // return early. rerender
       }
@@ -69,12 +69,7 @@ export default function MainPage() {
       }
     })();
   }, [ctx.accessToken]);
-
-  function handleAddGoal() {
-    //show modal and its from            
-    setModalStatus(true);
-  }
-
+    
   async function handleGoalButton(clickedGoal) {         
     
     //if accessToken is expired, retry useEffect.
@@ -103,29 +98,57 @@ export default function MainPage() {
 
   }
 
-  async function handleSubmit(fields){      
-    const goal_name = fields['Goal name'];
+  function handleAddGoal() {
+    //show modal and its from
 
-    const data = await fetch("http://localhost:3000/goal/add", {
-      method: "POST",
-      headers: {
-      "Content-Type": "application/json",
-      "authorization": `Bearer ${ctx.accessToken}`
-    },
-    body: JSON.stringify({goal_name: goal_name})
-    })
+    async function handleSubmit(fields){      
+     const goal_name = fields['Goal name'];
+
+     const data = await fetch("http://localhost:3000/goal/add", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${ctx.accessToken}`
+      },
+      body: JSON.stringify({goal_name: goal_name})
+      })
     
-    console.log(await data.json())
-
-    //create POST request to save the data.
-
+    console.log(await data.json()) //was it successful?
+    }    
+    
+    setModalStatus({status: true, onSumbit: handleSubmit, fields: ["Goal name"]});
   }
 
-  return (    
+  function handleAddCommit(){    
+
+    if(selectedGoal == null){console.log("user has not selected goal"); return;}
+
+    async function handleSubmit(fields){      
+    
+
+     const commit_name = fields['Commit name'];          
+     const goal_id = selectedGoal.id;
+
+     const data = await fetch("http://localhost:3000/commit/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": `Bearer ${ctx.accessToken}`
+        },
+        body: JSON.stringify({commit_name: commit_name, goal_id: goal_id})
+      })
+    
+      console.log(await data.json()) //was it successful?
+    }
+    
+    setModalStatus({status: true, onSumbit: handleSubmit, fields: ["Commit name"]});
+  }
+
+  return (
     <>
     <div className={styles.container}>      
       <aside className={styles.sidebar}>
-        <button 
+        <button
         className={styles.add_goal} 
         onClick={() => handleAddGoal()}>Add Goal</button>
           <ul className={styles.goalList}>
@@ -143,14 +166,15 @@ export default function MainPage() {
       </aside>
       <main className={styles.content}>
         <AboutGoal goal={selectedGoal}/>
+        <button className={styles.add_commit} onClick={() => (handleAddCommit())}>Add Commit</button>
         <Commits commits={commits}/> 
       </main>
     </div>
     <ModalForm
-     on={modalStatus}     
-     inputs={["Goal name"]}
-     handleSubmit={(fields) => handleSubmit(fields)}
-     onClose={() => {setModalStatus(false);}}/>
+     on={modalStatus.status}     
+     inputs={modalStatus.fields}
+     handleSubmit={modalStatus.onSumbit}
+     onClose={() => {setModalStatus({status: false, onSumbit: null, fields: []});}}/>
     </>
   );
 }

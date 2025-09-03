@@ -9,7 +9,7 @@ export default function MakeAddCommit(db){
     let user = null;
     try{
       user = resolveUser(req);
-    }catch(e){res.status(401).send(createErrorMessage(e))};
+    }catch(e){return res.status(401).send(createErrorMessage(e))};
 
     //check if body has necessary fields                    
     if(!checkResBody(req.body, ['goal_id', 'commit_name'])){
@@ -22,6 +22,6 @@ export default function MakeAddCommit(db){
       if(!status){res.status(501).send(createErrorMessage("Failed to create commit"))}
     }catch(e){res.send(501).send(e)} //function also checks if goal_id and user_id match.
 
-    res.sendStatus(201);
+    res.status(201).send({success: "created commit"});
   }
 }

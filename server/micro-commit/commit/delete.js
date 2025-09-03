@@ -8,7 +8,7 @@ export default function MakeDeleteCommit(){
     let user = null;
     try{
       user = resolveUser(req);
-    }catch(e){res.status(401).send(createErrorMessage(e))};
+    }catch(e){return res.status(401).send(createErrorMessage(e))};
 
     //check if body has necessary fields
     if(!checkResBody(req.body, ["commit_id"])){
@@ -21,6 +21,6 @@ export default function MakeDeleteCommit(){
       if(!status){res.status(501).send(createErrorMessage("Failed to delete commit. probably doesn't exist"))}
     }catch(e){res.send(501).send(e)} //function also checks if goal_id and user_id match.
 
-    res.sendStatus(200);
+    res.status(200).send({success: "deleted commit"});
   }
 }

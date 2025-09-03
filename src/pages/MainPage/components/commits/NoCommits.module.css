@@ -4,10 +4,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 90%;
+  min-height: max-content;
   font-size: larger;
   width: 100%;
 }
+
 
 ol {
   display: flex;
